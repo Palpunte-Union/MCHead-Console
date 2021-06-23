@@ -18,10 +18,14 @@ import java.util.Objects;
 
 public class Main {
     public static void main(String[] args) {
-        a(args[0]);
+        if(args.length == 2) {
+            a(args[0], args[1]);
+        } else if(args.length == 1) {
+            a(args[0], "");
+        }
     }
 
-    public static void a(String str) {
+    public static void a(String str, String path) {
         BufferedImage image;
         try {
             URL url = new URL("https://api.mojang.com/users/profiles/minecraft/" + str);
@@ -44,7 +48,7 @@ public class Main {
                     1000
             );
             image = image.getSubimage(367, 76, 264, 264);
-            ImageIO.write(image, "png", new File(str + ".png"));
+            ImageIO.write(image, "png", new File(path, str + ".png"));
         } catch (Exception e) {
             System.out.println("Player Not Found!");
         }
